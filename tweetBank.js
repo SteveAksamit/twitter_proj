@@ -2,7 +2,9 @@ const _ = require('lodash');
 const data = [];
 
 function add (name, content) {
-  data.push({ name: name, content: content });
+  var idNum = Math.floor(Math.random()*1000);
+  idNum = idNum.toString();
+  data.push({id: idNum, name: name, content: content });
 }
 
 function list () {

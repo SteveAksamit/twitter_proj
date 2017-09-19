@@ -91,8 +91,21 @@
     // When 'new_tweet' events are fired, do something with the packaged tweet
     socket.on('newTweet', function (tweet) {
       console.log(tweet);
-      alert('Refreshing... check the console...');
+      // alert('Refreshing... check the console...');
       // some logic to add the new tweet to the DOM…
+      //get element by tag name using ul
+      //append the LI DOM element
+      var node = document.createElement("LI");
+      var str =  " " + tweet.name + " - " + tweet.text
+      var textnode = document.createTextNode(str)
+
+      var img = document.createElement("img");
+      img.src = 'https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg'
+      node.appendChild(img);
+      node.appendChild(textnode);
+
+      var myUl = document.getElementById('ourlist').appendChild(node)
     });
   </script>
 </html>
+

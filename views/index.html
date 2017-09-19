@@ -1,49 +1,44 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
 
-{% block content %}
-
-  <div class="page-header">
-    <h1>Welcome to Twitter.js!</h1>
+<div class="page-header">
+  <h1>Welcome to Twitter.js!</h1>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
+    <b>Your Name</b><br> 100 followers
   </div>
-  <div class="row">
-    <div class="col-md-3">
-      <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
-      <b>Your Name</b><br>
-      100 followers
-    </div>
-    <div class="col-md-9">
-        {% if showForm %}
-        <form action="/tweets" method="POST">
-          <label for="name_field">Name:</label>
-          <input name="name" type="text" id="name_field" />
+  <div class="col-md-9">
+    {% if showForm %}
+    <form action="/tweets" method="POST">
+      <label for="name_field">Name:</label>
+      <input name="name" type="text" id="name_field" />
 
-          <label for="text_field">Text:</label>
-          <input name="text" type="text" id="text_field" style="width: 350px;" />
+      <label for="text_field">Text:</label>
+      <input name="text" type="text" id="text_field" style="width: 350px;" />
 
-          <input type="submit" value="Submit" />
-        </form>
-      {% endif %}
-      {%if showName %}
+      <input type="submit" value="Submit" />
+    </form>
+    {% endif %} {%if showName %} {% for tweet in tweets %}
+    <form action="/tweets" method="POST">
+      <label for="name_field">Name:</label>
+      <input name="name" value={{tweet.name}} type="text" id="name_field" />
+
+      <label for="text_field">Text:</label>
+      <input name="text" type="text" id="text_field" style="width: 350px;" />
+
+      <input type="submit" value="Submit" />
+    </form>
+    {% endfor %} {% endif %}
+    <!-- display tweets here -->
+    <ul id='ourlist'>
       {% for tweet in tweets %}
-      <form action="/tweets" method="POST">
-        <label for="name_field">Name:</label>
-        <input name="name" value={{tweet.name}} type="text" id="name_field" />
-
-        <label for="text_field">Text:</label>
-        <input name="text" type="text" id="text_field" style="width: 350px;" />
-
-        <input type="submit" value="Submit" />
-      </form>
+      <li>
+        <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg">
+        <a href="/users/{{tweet.name}}">{{tweet.name}}</a> - {{tweet.content}}</li>
       {% endfor %}
-      {% endif %}
-      <!-- display tweets here -->
-      {% for tweet in tweets %}
-        <li>
-          <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg">
-
-        <li><a href="/users/{{tweet.name}}">{{tweet.name}}</a> - {{tweet.content}}</li>
-      {% endfor %}
-    </div>
+    </ul>
   </div>
+</div>
 
 {% endblock %}

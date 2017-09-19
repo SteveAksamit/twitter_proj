@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
+const socketio = require('socket.io');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}))
@@ -17,8 +18,12 @@ nunjucks.configure('views', {noCache: true});
 // console.log(output);
 // });
 
-app.use('/', routes);
 
-app.listen(3000, function () {
-  console.log('server is listening on port 3000');
+var server = app.listen(3000, function () {
+    console.log('server is listening on port 3000');
 });
+
+var io = socketio.listen(server);
+
+app.use('/', routes(io));
+
